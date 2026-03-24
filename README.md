@@ -20,7 +20,7 @@ import 'package:flutter_tmdb_api/flutter_tmdb_api.dart';
 final tmdb = TmdbApi(apiReadAccessToken: 'YOUR_READ_ACCESS_TOKEN');
 ```
 
-Get your Read Access Token at https://www.themoviedb.org/settings/api.
+Get your Read Access Token at https://developer.themoviedb.org/docs/getting-started.
 
 ## Usage
 ```dart
