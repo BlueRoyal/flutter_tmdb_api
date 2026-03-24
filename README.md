@@ -1,39 +1,58 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# flutter_tmdb_api
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+A fully typed Flutter client for the TMDB API v3, built with Chopper and generated from the official OpenAPI spec.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Installation
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+Add this to your `pubspec.yaml`:
+```yaml
+dependencies:
+  flutter_tmdb_api:
+    git:
+      url: https://github.com/BlueRoyal/flutter_tmdb_api.git
+      ref: main
 ```
 
-## Additional information
+## Setup
+```dart
+import 'package:flutter_tmdb_api/flutter_tmdb_api.dart';
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+final tmdb = TmdbApi(apiReadAccessToken: 'YOUR_READ_ACCESS_TOKEN');
+```
+
+Get your Read Access Token at https://www.themoviedb.org/settings/api.
+
+## Usage
+```dart
+// Popular movies
+final popular = await tmdb.service.moviePopularGet(language: 'en-US', page: 1);
+
+// Movie details
+final details = await tmdb.service.movieMovieIdGet(movieId: 550, language: 'en-US');
+
+// Search
+final results = await tmdb.service.searchMovieGet(query: 'Matrix', language: 'en-US');
+
+// Trending
+final trending = await tmdb.service.trendingMovieTimeWindowGet(timeWindow: 'week');
+
+// TV shows
+final tv = await tmdb.service.tvPopularGet(language: 'en-US');
+
+// Discover with filters
+final discover = await tmdb.service.discoverMovieGet(
+  language: 'en-US',
+  sortBy: 'popularity.desc',
+  withGenres: '28',
+  primaryReleaseYear: 2024,
+);
+
+// Dispose when done
+tmdb.dispose();
+```
+
+## Available endpoints
+
+Movies, TV shows, people, search, discover, trending, genres, credits, reviews, watch providers, authentication, lists, keywords, collections, certifications, and more.
+
+All endpoints from the TMDB API v3 are available through `tmdb.service`.
