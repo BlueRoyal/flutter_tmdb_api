@@ -1,0 +1,13 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - $package$
+    builders:
+      swagger_dart_code_generator:
+        options:
+          input_folder: "lib/api/input"
+          output_folder: "lib/model/"
+          build_only_models: false
+          separate_models: true
+          class_prefix: "tmdb"
