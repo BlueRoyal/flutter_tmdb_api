@@ -2,6 +2,7 @@
 import 'dart:async';
 
 import 'package:chopper/chopper.dart';
+import 'package:flutter/foundation.dart';
 import 'model/tmdb3_swagger.swagger.dart';
 
 class TmdbApi {
@@ -16,7 +17,7 @@ class TmdbApi {
       interceptors: [
         _AuthInterceptor(apiReadAccessToken),
       ],
-      converter: const JsonConverter(),
+      converter: $JsonSerializableConverter(),
     );
   }
 
@@ -27,6 +28,9 @@ class TmdbApi {
   void dispose() {
     _client.dispose();
   }
+
+  @visibleForTesting
+  Converter? get converterForTesting => _client.converter;
 }
 
 class _AuthInterceptor implements Interceptor {
